@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.cl.baseapplication.R;
 import com.cl.baseapplication.base.BaseFragmentActivity;
@@ -49,6 +47,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         mBtn2.setOnClickListener(this);
         mBtn3.setOnClickListener(this);
         setIconSize();
+
     }
 
     private void initFragment() {
@@ -142,9 +141,12 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
         int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         mNavigationBtn.measure(w, h);
         int height = mNavigationBtn.getMeasuredHeight();
-        drawable.setBounds(0, 0, height / 2, height / 2);
-        drawable1.setBounds(0, 0, height / 2, height / 2);
-        drawable2.setBounds(0, 0, height / 2, height / 2);
+//        drawable.setBounds(0, 0, height / 2, height / 2);
+//        drawable1.setBounds(0, 0, height / 2, height / 2);
+//        drawable2.setBounds(0, 0, height / 2, height / 2);
+        drawable.setBounds(0, 0, 65, 65);
+        drawable1.setBounds(0, 0, 65, 65);
+        drawable2.setBounds(0, 0, 65, 65);
         mBtn1.setCompoundDrawables(null, drawable, null, null);
         mBtn2.setCompoundDrawables(null, drawable1, null, null);
         mBtn3.setCompoundDrawables(null, drawable2, null, null);

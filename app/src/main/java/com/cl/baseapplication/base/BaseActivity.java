@@ -3,10 +3,16 @@ package com.cl.baseapplication.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.cl.baseapplication.activity.MainActivity;
+import com.cl.baseapplication.utils.PermissionPool;
 
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
@@ -82,4 +88,44 @@ public class BaseActivity extends Activity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    /**
+     * Android6.0 权限处理
+     * @param code 权限标记Code
+     * @param permissionName 权限名称
+     */
+    public void permissionDispose(@PermissionPool.PermissionCode int code,
+                                  @PermissionPool.PermissionName String permissionName){
+        if(ContextCompat.checkSelfPermission(this, permissionName) != PackageManager.PERMISSION_GRANTED){
+            //没有权限,开始申请
+            ActivityCompat.requestPermissions(this, new String[]{permissionName}, code);
+        }else{
+            //有权限
+            onAccreditSucceed(code);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            //授权成功
+            onAccreditSucceed(requestCode);
+        }else if(grantResults[0]==PackageManager.PERMISSION_DENIED){
+            //授权失败
+            onAccreditFailure (requestCode);
+        }
+    }
+
+    /**
+     * 有授权执行的方法(子类重写)
+     */
+    public void onAccreditSucceed(int requestCode) {
+    }
+
+    /**
+     * 没有授权执行的方法(子类重写)
+     */
+    public void onAccreditFailure(int requestCode) {
+    }
+
 }
