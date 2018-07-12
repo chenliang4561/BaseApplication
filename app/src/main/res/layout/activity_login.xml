@@ -6,6 +6,8 @@
 
     <include layout="@layout/head_title"/>
 
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
